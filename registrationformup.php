@@ -1,6 +1,7 @@
    
 <?php
  //check if form was submitted
+ session_start();
  include('connect.php');
 
 
@@ -12,6 +13,9 @@
   $room = $_POST['troom'];
   $email = $_POST['email'];
   $password = $_POST['password'];
+
+
+  $_SESSION['email'] = $email;
 
 
 
@@ -31,7 +35,7 @@
         }
 
 
-        header("Location: login.php");
+        header("Location: emailverification.php");
 
 
     $conn -> close();
