@@ -23,6 +23,7 @@ if ($authFailedSqlRow->num_rows > 0) {
 if ($authRow->num_rows > 0) {
     while($row = $authRow->fetch_assoc()) {
         $_SESSION['uname'] = $row['name'];
+        $_SESSION['user_id'] = $row['user_id'];
         header("Location: index.php");
     }
 

@@ -61,11 +61,11 @@ include('connect.php');
                     <label for="tdesignation">Teacher Designation</label>
                     <select id ="tdesignation" name="tdesignation" class="form-select">
                         <option selected >Select Designation</option>
-                        <option value="lecturer">Lecturer</option>
-                        <option value="assitantProf">Assitant Professor</option>
-                        <option value="associateProf">Associate Professor</option>
-                        <option value="prof">Professor</option>
-                        <option value="gTeacher">Guest Teacher</option>
+                        <option value="Lecturer">Lecturer</option>
+                        <option value="Assitant Professor">Assitant Professor</option>
+                        <option value="Associate Professor">Associate Professor</option>
+                        <option value="Professor">Professor</option>
+                        <option value="Guest Teacher">Guest Teacher</option>
 
                     </select>
                 </div>
