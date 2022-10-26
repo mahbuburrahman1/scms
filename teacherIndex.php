@@ -22,15 +22,19 @@
 session_start();
 include('connect.php');
 include('navbar.php');
-$teacher_id = $_GET['tid'];
+$uid = $_SESSION['user_id'];
+
+
+
+
 
 $teacherScheduleSql = "SELECT teacher_schedule.teacher_id as tid, user.name as tname, teacher_schedule.weekday as tweek, teacher_schedule.start_time as tstime, teacher_schedule.end_time as tetime, teacher_schedule.work as twork  FROM teacher_schedule 
                         JOIN user ON teacher_schedule.teacher_id = user.user_id
-                        WHERE user_id = '$teacher_id'";
+                        WHERE user_id = '$uid'";
 $teacherSqlRun = $conn->query($teacherScheduleSql);
 
 $tnamesql = "SELECT name FROM user 
-            where user_id = '$teacher_id'";
+            where user_id = '$uid'";
 $tname = ($conn->query($tnamesql))->fetch_assoc();
 
 
@@ -47,12 +51,12 @@ $tname = ($conn->query($tnamesql))->fetch_assoc();
 
     <table class = "table table-bordered">
             <thead>
-            
-            <th scope="col">Teacher ID</th>
+        
             <th scope="col">Weekday</th>
             <th scope="col">Start Time</th>
             <th scope="col">End Time</th>
             <th scope="col">Work</th>
+            <th scope="col">Action</th>
 
             </thead>
 
@@ -62,12 +66,11 @@ $tname = ($conn->query($tnamesql))->fetch_assoc();
 
             while ($teacherInfo = ($teacherSqlRun) -> fetch_assoc()) {
                 echo "<tr>".
-                        
-                        "<td>".$teacherInfo['tid']."</td>".
                        " <td>".$teacherInfo['tweek']."</td>".
                        " <td>".$teacherInfo['tstime']."</td>".
                        " <td>".$teacherInfo['tetime']."</td>".
                        " <td>".$teacherInfo['twork']."</td>".
+                       " <td><button type='button' class='btn btn-success'>Edit</button></td>".
                    " </tr>";
 
             }
@@ -90,6 +93,7 @@ $tname = ($conn->query($tnamesql))->fetch_assoc();
 
     
 </div>
+
 
 
 </body>
