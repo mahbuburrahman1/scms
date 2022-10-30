@@ -17,6 +17,10 @@
 
 </head>
 <body>
+
+
+
+
 <?php
 
 session_start();
@@ -24,14 +28,6 @@ include('connect.php');
 include('navbar.php');
 $uid = $_SESSION['user_id'];
 
-
-
-
-
-$teacherScheduleSql = "SELECT teacher_schedule.teacher_id as tid, user.name as tname, teacher_schedule.weekday as tweek, teacher_schedule.start_time as tstime, teacher_schedule.end_time as tetime, teacher_schedule.work as twork  FROM teacher_schedule 
-                        JOIN user ON teacher_schedule.teacher_id = user.user_id
-                        WHERE user_id = '$uid'";
-$teacherSqlRun = $conn->query($teacherScheduleSql);
 
 $tnamesql = "SELECT name FROM user 
             where user_id = '$uid'";
@@ -49,50 +45,64 @@ $tname = ($conn->query($tnamesql))->fetch_assoc();
     <br>
     <h1>Schedule of <?php echo $tname['name'] ?></h1>
 
-    <table class = "table table-bordered">
-            <thead>
-        
-            <th scope="col">Weekday</th>
-            <th scope="col">Start Time</th>
-            <th scope="col">End Time</th>
-            <th scope="col">Work</th>
-            <th scope="col">Action</th>
-
-            </thead>
-
-            <tbody>
-
-            <?php
-
-            while ($teacherInfo = ($teacherSqlRun) -> fetch_assoc()) {
-                echo "<tr>".
-                       " <td>".$teacherInfo['tweek']."</td>".
-                       " <td>".$teacherInfo['tstime']."</td>".
-                       " <td>".$teacherInfo['tetime']."</td>".
-                       " <td>".$teacherInfo['twork']."</td>".
-                       " <td><button type='button' class='btn btn-success'>Edit</button></td>".
-                   " </tr>";
-
-            }
-                
-                
-
-                
-
-                
-
-            ?>
-
-            </tbody>
-        
-        
-        </table>
-
+ <br>
+  
         
     
 
     
 </div>
+
+<div class = "container">
+    <label for="sweekday">Select Weekday</label>
+        <select id ="sweekday" name="sweekday" class=" form-select" onchange="showSchedule(this.value)">
+
+            <option value="Saturday">Saturday</option>
+            <option value="Sunday">Sunday</option>
+            <option value="Monday">Monday</option>
+            <option value="Tuesday">Tuesday</option>
+            <option value="Wednesday">Wednesday</option>
+        </select>
+
+    <br>
+
+
+    <div id = "trowshow">
+
+    </div>
+
+
+</div>
+
+
+    
+
+
+
+<script>
+
+var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+var d = new Date();
+var dayName = days[d.getDay()];
+
+document.getElementById("sweekday").value = dayName;
+showSchedule(dayName);
+
+
+
+
+function showSchedule(day) {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("trowshow").innerHTML = this.responseText;
+      }
+    };
+    xmlhttp.open("GET", "fetchScheduleForTeacher.php?day=" + day, true);
+    xmlhttp.send();
+  
+}
+</script>
 
 
 

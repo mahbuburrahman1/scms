@@ -20,6 +20,52 @@ $email = $_GET['email'];
 $token = $_GET['token'];
 
 
+$userInfosql = "SELECT * FROM user
+              WHERE email = '$email'";
+$userInfo = ($conn->query($userInfosql))->fetch_assoc();
+$tid = $userInfo['user_id'];
+if ($userInfo['role'] == 'teacher') {
+    $teacherScheduleCreateSql = "INSERT INTO teacher_schedule (teacher_id, weekday, start_time, end_time, work)
+                    VALUES
+                        ('$tid','Saturday','09:00:00', '10:00:00', 'NULL'),
+                        ('$tid','Saturday','10:00:00', '11:00:00', 'NULL'),
+                        ('$tid','Saturday','11:00:00', '12:00:00', 'NULL'),
+                        ('$tid','Saturday','12:00:00', '01:00:00', 'NULL'),
+                        ('$tid','Saturday','01:00:00', '02:00:00', 'Launch Hour'),
+                        ('$tid','Saturday','02:00:00', '03:00:00', 'NULL'),
+                        ('$tid','Saturday','03:00:00', '04:00:00', 'NULL'),
+                        ('$tid','Sunday','09:00:00', '10:00:00', 'NULL'),
+                        ('$tid','Sunday','10:00:00', '11:00:00', 'NULL'),
+                        ('$tid','Sunday','11:00:00', '12:00:00', 'NULL'),
+                        ('$tid','Sunday','12:00:00', '01:00:00', 'NULL'),
+                        ('$tid','Sunday','01:00:00', '02:00:00', 'Launch Hour'),
+                        ('$tid','Sunday','02:00:00', '03:00:00', 'NULL'),
+                        ('$tid','Sunday','03:00:00', '04:00:00', 'NULL'),
+                        ('$tid','Monday','09:00:00', '10:00:00', 'NULL'),
+                        ('$tid','Monday','10:00:00', '11:00:00', 'NULL'),
+                        ('$tid','Monday','11:00:00', '12:00:00', 'NULL'),
+                        ('$tid','Monday','12:00:00', '01:00:00', 'NULL'),
+                        ('$tid','Monday','01:00:00', '02:00:00', 'Launch Hour'),
+                        ('$tid','Monday','02:00:00', '03:00:00', 'NULL'),
+                        ('$tid','Monday','03:00:00', '04:00:00', 'NULL'),
+                        ('$tid','Tuesday','09:00:00', '10:00:00', 'NULL'),
+                        ('$tid','Tuesday','10:00:00', '11:00:00', 'NULL'),
+                        ('$tid','Tuesday','11:00:00', '12:00:00', 'NULL'),
+                        ('$tid','Tuesday','12:00:00', '01:00:00', 'NULL'),
+                        ('$tid','Tuesday','01:00:00', '02:00:00', 'Launch Hour'),
+                        ('$tid','Tuesday','02:00:00', '03:00:00', 'NULL'),
+                        ('$tid','Tuesday','03:00:00', '04:00:00', 'NULL'),
+                        ('$tid','Wednesday','09:00:00', '10:00:00', 'NULL'),
+                        ('$tid','Wednesday','10:00:00', '11:00:00', 'NULL'),
+                        ('$tid','Wednesday','11:00:00', '12:00:00', 'NULL'),
+                        ('$tid','Wednesday','12:00:00', '01:00:00', 'NULL'),
+                        ('$tid','Wednesday','01:00:00', '02:00:00', 'Launch Hour'),
+                        ('$tid','Wednesday','02:00:00', '03:00:00', 'NULL'),
+                        ('$tid','Wednesday','03:00:00', '04:00:00', 'NULL')";
+
+        $conn->query($teacherScheduleCreateSql);
+}
+
 
 
 
