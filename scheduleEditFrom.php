@@ -45,7 +45,12 @@
             </div>
             <div class="form-group">
                 <label for="twork">Work</label>
-                <input type="text" name="twork" class="form-control" value="<?php echo $row['work']?>">
+                <select name="twork" class="form-select">
+                    <option value="Class">Class</option>
+                    <option value="Meeting">Meeting</option>
+                    <option value="Research">Research</option>
+                    <option value="Consultation Hour">Consultation Hour</option>
+                </select>
             </div>
             <br>
             <div class="form-group text-center">

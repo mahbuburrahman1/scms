@@ -15,14 +15,19 @@
 <?php
 session_start();
 include('connect.php');
-$uid = $_SESSION['user_id'];
+$teacher_id = $_SESSION['teacher_id'];
 $sday = $_GET['day'];
+
+// $teacherScheduleSql = "SELECT teacher_schedule.teacher_id as tid, user.name as tname, teacher_schedule.weekday as tweek, teacher_schedule.start_time as tstime, teacher_schedule.end_time as tetime, teacher_schedule.work as twork  FROM teacher_schedule 
+//                         JOIN user ON teacher_schedule.teacher_id = user.user_id
+//                         WHERE user_id = '$teacher_id' AND weekday='$sday'";
+// $teacherSqlRun = $conn->query($teacherScheduleSql);
 
 
 
 $teacherScheduleSql = "SELECT teacher_schedule.teacher_schedule_id as tsid, teacher_schedule.teacher_id as tid, user.name as tname, teacher_schedule.weekday as tweek, teacher_schedule.start_time as tstime, teacher_schedule.end_time as tetime, teacher_schedule.work as twork  FROM teacher_schedule 
                         JOIN user ON teacher_schedule.teacher_id = user.user_id
-                        WHERE user_id = '$uid' AND weekday = '$sday'";
+                        WHERE user_id = '$teacher_id' AND weekday = '$sday'";
 $teacherSqlRun = $conn->query($teacherScheduleSql);
 
 ?>
@@ -32,7 +37,7 @@ $teacherSqlRun = $conn->query($teacherScheduleSql);
             <th scope="col">End Time</th>
             <th scope="col">Work</th>
             <th scope="col">Action</th>
-        </thead>       
+            </thead>       
         
         <tbody>
             <?php
@@ -43,7 +48,7 @@ $teacherSqlRun = $conn->query($teacherScheduleSql);
                     "<td>".$teacherInfo['tstime']."</td>".
                     " <td>".$teacherInfo['tetime']."</td>".
                     " <td>".$teacherInfo['twork']."</td>".
-                    " <td><a href='scheduleEditFrom.php?tsid=".$tscheduleId."'><button type='button' class='btn btn-success'>Edit</button></a></td>". 
+                    " <td><a href='schedule_request_upload.php?tsid=".$tscheduleId."'><button type='button' class='btn btn-success'>Request Appointment</button></a></td>". 
                     "</tr>";
                  }
 

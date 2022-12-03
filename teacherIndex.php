@@ -39,11 +39,12 @@ $tname = ($conn->query($tnamesql))->fetch_assoc();
 
 
 
-<div class= "container clearfix text-center rounded mt-5">
+<div class= "container clearfix  rounded mt-5">
     <a class="btn btn-danger float-end" href="logout.php" role="button">Log Out</a>
+    <a class="btn btn-warning  float-left" href="requestedSchedule.php" role="button">Requested Schedules</a>
     <br>
     <br>
-    <h1>Schedule of <?php echo $tname['name'] ?></h1>
+    <h1 class="text-center ">Schedule of <?php echo $tname['name'] ?></h1>
 
  <br>
   

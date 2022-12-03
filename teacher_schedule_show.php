@@ -24,10 +24,9 @@ include('connect.php');
 include('navbar.php');
 $teacher_id = $_GET['tid'];
 
-$teacherScheduleSql = "SELECT teacher_schedule.teacher_id as tid, user.name as tname, teacher_schedule.weekday as tweek, teacher_schedule.start_time as tstime, teacher_schedule.end_time as tetime, teacher_schedule.work as twork  FROM teacher_schedule 
-                        JOIN user ON teacher_schedule.teacher_id = user.user_id
-                        WHERE user_id = '$teacher_id'";
-$teacherSqlRun = $conn->query($teacherScheduleSql);
+$_SESSION['teacher_id'] = $teacher_id;
+
+
 
 $tnamesql = "SELECT name FROM user 
             where user_id = '$teacher_id'";
@@ -41,56 +40,56 @@ $tname = ($conn->query($tnamesql))->fetch_assoc();
 
 <div class= "container clearfix text-center rounded mt-5">
     <a class="btn btn-danger float-end" href="logout.php" role="button">Log Out</a>
-    <br>
-    <br>
-    <h1>Schedule of <?php echo $tname['name'] ?></h1>
 
-    <table class = "table table-bordered">
-            <thead>
-            
-            <th scope="col">Teacher ID</th>
-            <th scope="col">Weekday</th>
-            <th scope="col">Start Time</th>
-            <th scope="col">End Time</th>
-            <th scope="col">Work</th>
-
-            </thead>
-
-            <tbody>
-
-            <?php
-
-            while ($teacherInfo = ($teacherSqlRun) -> fetch_assoc()) {
-                echo "<tr>".
-                        
-                        "<td>".$teacherInfo['tid']."</td>".
-                       " <td>".$teacherInfo['tweek']."</td>".
-                       " <td>".$teacherInfo['tstime']."</td>".
-                       " <td>".$teacherInfo['tetime']."</td>".
-                       " <td>".$teacherInfo['twork']."</td>".
-                   " </tr>";
-
-            }
-                
-                
-
-                
-
-                
-
-            ?>
-
-            </tbody>
-        
-        
-        </table>
-
-        
-    
-
-    
 </div>
+    <br>
+    <br>
+    <div class="container">
+     <h1 style="text-align: center;">Schedule of <?php echo $tname['name'] ?></h1>
+     <br>
+     <label for="sweekday">Select Weekday</label>
+        <select id ="sweekday" name="sweekday" class=" form-select" onchange="showSchedule(this.value)">
+            <option value="Saturday">Saturday</option>
+            <option value="Sunday">Sunday</option>
+            <option value="Monday">Monday</option>
+            <option value="Tuesday">Tuesday</option>
+            <option value="Wednesday">Wednesday</option>
+        </select>
+        <br>
 
+
+        <div id = "trowshow">
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        var d = new Date();
+        var dayName = days[d.getDay()];
+
+        document.getElementById("sweekday").value = dayName;
+        showSchedule(dayName);
+
+
+
+
+        function showSchedule(day) {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("trowshow").innerHTML = this.responseText;
+            }
+            };
+            xmlhttp.open("GET", "fetchScheduleForStudent.php?day=" + day, true);
+            xmlhttp.send();
+        
+        }
+    </script>
+    
 
 </body>
 </html>
