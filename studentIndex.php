@@ -33,6 +33,7 @@ $uid = $_SESSION['user_id'];
 
 
 <div class= "container text-center rounded mt-5">
+<a class="btn btn-warning text-white float-start" href="notification.php" role="button">Notification</a>
 <a class="btn btn-danger float-end" href="logout.php" role="button">Log Out</a>
 <br>
 

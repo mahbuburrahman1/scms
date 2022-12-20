@@ -47,9 +47,12 @@ $teacherSqlRun = $conn->query($teacherScheduleSql);
                     "<td style='display:none'>".$tscheduleId."</td>".
                     "<td>".$teacherInfo['tstime']."</td>".
                     " <td>".$teacherInfo['tetime']."</td>".
-                    " <td>".$teacherInfo['twork']."</td>".
-                    " <td><a href='schedule_request_upload.php?tsid=".$tscheduleId."'><button type='button' class='btn btn-success'>Request Appointment</button></a></td>". 
-                    "</tr>";
+                    " <td>".$teacherInfo['twork']."</td>";
+                    if ($teacherInfo['twork'] == "Consultation Hour" || $teacherInfo['twork'] == "Research" )
+                    echo "<td><a href='scheduleRequestForm.php?tsid=".$tscheduleId."'><button type='button' class='btn btn-success'>Request Appointment</button></a></td>";
+                    else echo "<td></td>";
+
+                    echo "</tr>";
                  }
 
 
