@@ -15,7 +15,7 @@ $conn->query($updateSql);
 
 echo "<script>alert(Update Successful!)</script>";
 
-header("Location: teacherIndex.php");
+header("Location: teacherIndex.php?tsid=".$tsid);
 
 
 

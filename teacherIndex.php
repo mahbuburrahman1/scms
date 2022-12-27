@@ -82,12 +82,45 @@ $tname = ($conn->query($tnamesql))->fetch_assoc();
 
 <script>
 
-var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-var d = new Date();
-var dayName = days[d.getDay()];
+    <?php
 
-document.getElementById("sweekday").value = dayName;
-showSchedule(dayName);
+        
+
+        if (isset($_GET['tsid'])) {
+            $tsid = $_GET['tsid'];
+
+            $getDaySql = "SELECT * FROM teacher_schedule WHERE teacher_schedule_id = '$tsid' ";
+            $getDay = $conn->query($getDaySql)->fetch_assoc();
+            $dayName =  $getDay['weekday'];
+            ?>
+
+            var dayName = "<?php echo $dayName?>";
+
+            document.getElementById("sweekday").value = dayName;
+            showSchedule(dayName);
+
+
+
+            <?php
+        }else {
+            ?>
+
+            var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            var d = new Date();
+            var dayName = days[d.getDay()];
+
+            console.log(dayName);
+
+            document.getElementById("sweekday").value = dayName;
+            showSchedule(dayName);
+
+            <?php
+
+        }
+
+    ?>
+
+
 
 
 
