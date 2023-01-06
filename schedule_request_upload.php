@@ -9,13 +9,18 @@ $topic = $_POST['topic'];
 $timeNeeded = $_POST['timeNeeded'];
 $groupMember = $_POST['groupMember'];
 $rstudent = $_POST['rstudent'];
+$appointmentDate = $_POST['date'];
+
+
 
 
 date_default_timezone_set("Asia/Dhaka");
 $dateTime= date("Y-m-d h:i:sa");
 
-$sql = "INSERT INTO schedule_request(teacher_schedule_id, student_id, request_time, status,        topic, timeNeeded, groupMember, isResearch)
-        VALUES ('$tsid', '$uid', '$dateTime', 'pending', '$topic','$timeNeeded','$groupMember','$rstudent')";
+// echo $appointmentDate;
+
+$sql = "INSERT INTO schedule_request(teacher_schedule_id, student_id, request_time, status,        topic, timeNeeded, groupMember, isResearch, appointmentDate)
+        VALUES ('$tsid', '$uid', '$dateTime', 'pending', '$topic','$timeNeeded','$groupMember','$rstudent', '$appointmentDate')";
 
 
 if ($conn->query($sql)===TRUE) {
@@ -47,7 +52,7 @@ $studentName = $studentInfo['name'];
 
     $subject = "New Schedule Request From SCMS";
             
-    $message = "<h1>SCMS</h1>You have got a new schedule request from <b>".$studentName."</b>, schedule time is <b>".$weekDay."</b> at <b>".$startTime."</b> for <b>".$timeNeeded."</b> min about <b>".$topic."</b>";
+    $message = "<h1>SCMS</h1>You have got a new schedule request from <b>".$studentName."</b>, schedule time is <b>".$appointmentDate."</b> at <b>".$startTime."</b> for <b>".$timeNeeded."</b> min about <b>".$topic."</b>";
 
     $message.= '<br>To accept or reject request click the button below<br> <a href="http://localhost/scms/requestedSchedule.php" style="background-color:red;border:none;color:white;margin:auto;padding:8px 16px;text-align:center;text-decoration:none;display:inline-block;font-size:14px;border-radius:4px;">Open SCMS</a>';
    

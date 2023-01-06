@@ -22,8 +22,13 @@
 session_start();
 include('connect.php');
 include('navbar.php');
+
 $teacher_id = $_SESSION['teacher_id'];
 $tsid = $_GET['tsid'];
+$date = $_GET['date'];
+
+
+
 
 
 
@@ -38,7 +43,7 @@ $tname = ($conn->query($tnamesql))->fetch_assoc();
 
 
 
-<div class= "container clearfix text-center rounded mt-5">
+ <div class= "container clearfix text-center rounded mt-5">
     <a class="btn btn-danger float-end" href="logout.php" role="button">Log Out</a>
 
 </div>
@@ -49,6 +54,16 @@ $tname = ($conn->query($tnamesql))->fetch_assoc();
      <br>
 
      <form action="schedule_request_upload.php" method = "post" class="mt-2 mb-3" >
+
+     <div  class="form-group pb-3">
+        <label for="date">Selected Date</label>
+        <input class="form-control" type="date" name="date" value="<?php echo $date ?>" readonly>
+
+
+     </div>
+
+
+
 
      <input type="hidden" id="tsid" name="tsid" value="<?php echo $tsid ?>">
                 <div class="form-group pb-3">
@@ -87,7 +102,7 @@ $tname = ($conn->query($tnamesql))->fetch_assoc();
             </form> 
      
 
-    </div>
+    </div> 
 
     
 

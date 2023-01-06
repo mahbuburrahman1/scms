@@ -17,6 +17,7 @@ session_start();
 include('connect.php');
 $teacher_id = $_SESSION['teacher_id'];
 $sday = $_GET['day'];
+$date = $_GET['date'];
 
 // $teacherScheduleSql = "SELECT teacher_schedule.teacher_id as tid, user.name as tname, teacher_schedule.weekday as tweek, teacher_schedule.start_time as tstime, teacher_schedule.end_time as tetime, teacher_schedule.work as twork  FROM teacher_schedule 
 //                         JOIN user ON teacher_schedule.teacher_id = user.user_id
@@ -33,6 +34,7 @@ $teacherSqlRun = $conn->query($teacherScheduleSql);
 ?>
 <table class = "table text-center table-bordered">
         <thead>
+            <!-- <th scope="col">Date</th> -->
             <th scope="col">Start Time</th>
             <th scope="col">End Time</th>
             <th scope="col">Work</th>
@@ -45,11 +47,12 @@ $teacherSqlRun = $conn->query($teacherScheduleSql);
                     $tscheduleId = $teacherInfo['tsid'];
                     echo "<tr>".
                     "<td style='display:none'>".$tscheduleId."</td>".
+                    "<td style='display:none'>".$date."</td>".
                     "<td>".$teacherInfo['tstime']."</td>".
                     " <td>".$teacherInfo['tetime']."</td>".
                     " <td>".$teacherInfo['twork']."</td>";
                     if ($teacherInfo['twork'] == "Consultation Hour" || $teacherInfo['twork'] == "Research" )
-                    echo "<td><a href='scheduleRequestForm.php?tsid=".$tscheduleId."'><button type='button' class='btn btn-success'>Request Appointment</button></a></td>";
+                    echo "<td><a href='scheduleRequestForm.php?tsid=".$tscheduleId."&date=".$date."'><button type='button' class='btn btn-success'>Request Appointment</button></a></td>";
                     else echo "<td></td>";
 
                     echo "</tr>";
