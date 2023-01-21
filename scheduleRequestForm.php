@@ -38,6 +38,17 @@ $tnamesql = "SELECT name FROM user
 $tname = ($conn->query($tnamesql))->fetch_assoc();
 
 
+$totalTime = 0;
+$timesql = "SELECT * FROM schedule_request WHERE teacher_schedule_id = '$tsid' AND appointmentDate = '$date' AND status = 'accept'";
+$time=$conn->query($timesql);
+while ($row = $time->fetch_assoc()) {
+
+    $totalTime = $totalTime + $row['timeNeeded'];
+
+}
+// echo $totalTime;
+
+
 ?>
 
 
@@ -75,12 +86,13 @@ $tname = ($conn->query($tnamesql))->fetch_assoc();
                     <label for="timeNeeded">Time Needed</label>
                     <select id ="timeNeeded" name="timeNeeded" class="form-select">
                         <option selected >Select Time you need</option>
-                        <option value="10">10 Min</option>
-                        <option value="20">20 Min</option>
-                        <option value="30">30 Min</option>
-                        <option value="40">40 Min</option>
-                        <option value="50">50 Min</option>
-                        <option value="60">60 Min</option>
+                        <?php
+                            for($i=10; $i<=60-$totalTime; $i=$i+10) {
+                                ?>
+                                <option value="<?php echo $i?>"><?php echo $i?> Min</option>
+                         <?php
+                            }
+                            ?>
                     </select>
                 </div>
 

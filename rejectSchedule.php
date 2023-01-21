@@ -51,7 +51,8 @@
                 
     $message = "<h1>SCMS</h1> <br><h3>Sorry!</h3> Your request to <b>Mr. ".$teacherName."</b>, has been <b style='color:red'>rejected!</b> schedule time was <b>".$weekDay."</b> at <b>".$startTime."</b> for <b>".$timeNeeded."</b> min about <b>".$topic."</b>";
 
-    $message.= '<br>To see detail click the button below<br> <a href="http://localhost/scms/notification.php" style="background-color:red;border:none;color:white;margin:auto;padding:8px 16px;text-align:center;text-decoration:none;display:inline-block;font-size:14px;border-radius:4px;">Open SCMS</a>';
+    $message.= '<br>To see detail click the button below<br> <a href="
+    " style="background-color:red;border:none;color:white;margin:auto;padding:8px 16px;text-align:center;text-decoration:none;display:inline-block;font-size:14px;border-radius:4px;">Open SCMS</a>';
 
 
     $header = "From:mahbub4248@gmail.com \r\n";

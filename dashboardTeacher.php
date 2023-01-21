@@ -29,7 +29,7 @@ $uid = $_SESSION['user_id'];
     <?php 
     
 
-        $scheduleFetchSql = "SELECT teacher_schedule.teacher_schedule_id , schedule_request.teacher_schedule_id as tsid, teacher_schedule.teacher_id as tid, schedule_request.student_id as stdid,schedule_request.topic as topic, schedule_request.timeNeeded as timeNeeded, schedule_request.groupMember as gmember, schedule_request.isResearch as isresearch, schedule_request.appointmentDate as appdate, schedule_request.status FROM teacher_schedule
+        $scheduleFetchSql = "SELECT schedule_request.schedule_request_id as srid, teacher_schedule.teacher_schedule_id , schedule_request.teacher_schedule_id as tsid, teacher_schedule.teacher_id as tid, schedule_request.student_id as stdid, schedule_request.topic as topic, schedule_request.timeNeeded as timeNeeded, schedule_request.groupMember as gmember, schedule_request.isResearch as isresearch, schedule_request.appointmentDate as appdate, schedule_request.status FROM teacher_schedule
                             JOIN schedule_request ON teacher_schedule.teacher_schedule_id = schedule_request.teacher_schedule_id
                             WHERE teacher_schedule.teacher_id = '$uid' AND schedule_request.status = 'accept' AND schedule_request.appointmentDate >= CURRENT_DATE";
         $scheduleFetch = $conn -> query ($scheduleFetchSql);
@@ -46,6 +46,7 @@ $uid = $_SESSION['user_id'];
                 <th scope="col">Group Member</th>
                 <th scope="col">Is Research Student?</th>
                 <th scope="col">Date Time</th>
+                <th scope="col">Action</th>
 
 
             </thead>
@@ -56,6 +57,7 @@ $uid = $_SESSION['user_id'];
                 while ($scheduleRow = $scheduleFetch->fetch_assoc()) {
                     $tsid = $scheduleRow['tsid'];
                     $stdid = $scheduleRow['stdid'];
+                    $srid = $scheduleRow['srid'];
                     $studentInfoSql = "SELECT * FROM user WHERE user_id = '$stdid'";
                     $studentInfo = $conn->query($studentInfoSql)->fetch_assoc();
 
@@ -68,6 +70,7 @@ $uid = $_SESSION['user_id'];
                        " <td>".$scheduleRow['gmember']."</td>".
                        " <td>".$scheduleRow['isresearch']."</td>".
                        " <td>".$scheduleRow['appdate']." ".$stime['start_time']."</td>".
+                       " <td><a href='scheduleUpdateFrom.php?srid=".$srid."&tsid=".$tsid."'><button type='button' class='btn btn-success'>Edit</button></a></td>". 
                    " </tr>";
 
                 }
